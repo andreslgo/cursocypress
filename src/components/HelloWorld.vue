@@ -3,10 +3,17 @@
     <h1>{{ msg }}</h1>
     <h3>Formulario</h3>
     <div class="form">
-      <form @submit.prevent="validate">
+      <form @submit.prevent="validateAll">
         <div class="form-group">
           <label for="">Nombre</label>
-          <input type="text" class="input-group" id="name" />
+          <input
+            type="text"
+            class="input-group"
+            id="name"
+            @blur="validateName"
+            v-model="name"
+          />
+          <span class="msg-error" v-show="errors.name">{{ errors.name }}</span>
         </div>
         <div class="form-group">
           <label for="">Email</label>
@@ -37,10 +44,15 @@ export default {
     name: null,
     email: null,
     phone: null,
-    error: false
+    error: false,
+    errors: {
+      name: null,
+      email: null,
+      phone: null
+    }
   }),
   methods: {
-    validate() {
+    validateAll() {
       let flag = true;
       if (this.name == null || this.name.length < 3) {
         flag = false;
@@ -52,6 +64,14 @@ export default {
         flag = false;
       }
       this.error = !flag;
+    },
+    // eslint-disable-next-line no-unused-vars
+    validateName() {
+      if (this.name == null || this.name.length < 3) {
+        this.errors.name = "El valor es incorrecto!";
+      } else {
+        this.errors.name = null;
+      }
     }
   }
 };
@@ -63,6 +83,10 @@ export default {
   margin: 0 auto;
   width: 100%;
   max-width: 400px;
+}
+.msg-error {
+  font-size: 10px;
+  color: red;
 }
 h3 {
   margin: 40px 0 0;

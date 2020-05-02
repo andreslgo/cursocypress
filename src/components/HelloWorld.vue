@@ -25,6 +25,7 @@
         </div>
         <div>
           <button class="btn btn-primary btn-lg" type="submit">Enviar</button>
+          <button class="btn btn-default btn-lg" type="reset">Reset</button>
         </div>
         <div class="alert alert-danger" v-show="error">
           El formulario tiene errores
@@ -53,6 +54,7 @@ export default {
   }),
   methods: {
     validateAll() {
+      this.error = false;
       let flag = true;
       if (this.name == null || this.name.length < 3) {
         flag = false;
@@ -60,9 +62,9 @@ export default {
       if (this.email == null || this.email.length < 3) {
         flag = false;
       }
-      if (this.phone == null || this.phone.toString().length < 7) {
+      /*if (this.phone == null || this.phone.toString().length < 7) {
         flag = false;
-      }
+      }*/
       this.error = !flag;
     },
     // eslint-disable-next-line no-unused-vars

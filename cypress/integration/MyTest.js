@@ -16,8 +16,7 @@ describe('Validaciones del formulario', () => {
     cy.get("form").children(".alert-danger").should('to.be.visible')
   });
   it('Validacion de formulario correcto', () => {
-    cy.fixture("emails.json").as("emails")
-    cy.get("#email").type('@emails[0].email')
+    cy.get("#email").type('test@test.com')
     cy.get("#phone").type('3007393899')
     cy.contains("button", "Enviar").click()
     cy.wait(1000)
